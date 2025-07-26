@@ -1,45 +1,57 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { Platform, View } from 'react-native';
+import { useThemeColors } from '@/components/base/Theme';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-// import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+const screens = [
+  {
+    name: 'index',
+    title: 'Home',
+    icon: 'house',
+  },
+  {
+    name: 'apps/index',
+    title: 'Apps',
+    icon: 'apps',
+  },
+  {
+    name: 'menu/index',
+    title: 'Menu',
+    icon: 'menu',
+  },
+];
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function Layout() {
+  const { colors } = useThemeColors();
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        // tabBarActiveBackgroundColor: 'red',
-        tabBarBackground: () => <View className="bg-base flex-1" />,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
+        tabBarActiveTintColor: colors.accent,
+        headerStyle: {
+          backgroundColor: colors.base2,
+        },
+        tabBarStyle: {
+          height: 86,
+          paddingTop: 4,
+          backgroundColor: colors.base2,
+        },
+        tabBarLabelStyle: {
+          fontSize: 13,
+          marginTop: 4,
+        },
       }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
-      />
+      {screens.map((screen) => (
+        <Tabs.Screen
+          key={screen.name}
+          name={screen.name}
+          options={{
+            title: screen.title,
+            tabBarIcon: ({ color }: any) => (
+              <MaterialIcons size={30} name={screen.icon} color={color} />
+            ),
+          }}
+        />
+      ))}
     </Tabs>
   );
 }

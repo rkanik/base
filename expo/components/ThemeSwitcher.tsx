@@ -24,7 +24,7 @@ export const ThemeSwitcher = () => {
   const { colorScheme = 'light', setColorScheme } = useColorScheme();
   return (
     <View className="gap-4 py-4">
-      <View className="bg-base border p-4">
+      <View className="bg-base2 rounded p-4">
         <Text className="text-basef">Theme: {theme}</Text>
         <View className="flex-row gap-2">
           {themeNames.map((theme) => (
@@ -32,7 +32,7 @@ export const ThemeSwitcher = () => {
           ))}
         </View>
       </View>
-      <View className="bg-base border p-4">
+      <View className="bg-base2 rounded p-4">
         <Text className="text-basef">Color Scheme: {colorScheme}</Text>
         <View className="flex-row gap-2">
           {colorSchemes.map(({ name, value }) => (
