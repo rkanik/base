@@ -42,6 +42,8 @@ export const themes = {
 }
 
 export type TTheme = keyof typeof themes
+export type TThemeColor = keyof typeof themes.default.light
+
 export const themeNames = Object.keys(themes) as TTheme[]
 
 export const useTheme = () => {
